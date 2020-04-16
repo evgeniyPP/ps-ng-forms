@@ -5,9 +5,11 @@
       <label for="name">Name</label>
       <input
         id="name"
+        name="name"
         type="text"
         class="form-control"
         placeholder="Your Name"
+        [(ngModel)] = "userSettings.name"
       />
     </div>
 
@@ -17,6 +19,7 @@
         name="emailOffers"
         type="checkbox"
         class="form-check-input"
+        [(ngModel)] = "userSettings.emailOffers"
       />
       <label for="emailOffers" class="form-check-label"
         >Email Special Offers</label
@@ -28,27 +31,33 @@
       <div class="form-check">
         <input
           id="lightInterface"
-          name="interfaceSettings"
+          name="interfaceStyle"
           type="radio"
           class="form-check-input"
+          value="light"
+          [(ngModel)] = "userSettings.interfaceStyle"
         />
         <label for="lightInterface" class="form-check-label">Light</label>
       </div>
       <div class="form-check">
         <input
           id="mediumInterface"
-          name="interfaceSettings"
+          name="interfaceStyle"
           type="radio"
           class="form-check-input"
+          value="medium"
+          [(ngModel)] = "userSettings.interfaceStyle"
         />
         <label for="mediumInterface" class="form-check-label">Medium</label>
       </div>
       <div class="form-check">
         <input
           id="darkInterface"
-          name="interfaceSettings"
+          name="interfaceStyle"
           type="radio"
           class="form-check-input"
+          value="dark"
+          [(ngModel)] = "userSettings.interfaceStyle"
         />
         <label for="darkInterface" class="form-check-label">Dark</label>
       </div>
@@ -60,6 +69,7 @@
         name="subscriptionType"
         id="subscriptionType"
         class="form-control"
+        [(ngModel)] = "userSettings.subscriptionType"
       >
         <option value="monthly">Monthly</option>
         <option value="annual">Annual</option>
@@ -69,7 +79,13 @@
 
     <div class="form-group">
       <label for="notes">Notes</label>
-      <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+      <textarea
+        name="notes"
+        id="notes"
+        class="form-control"
+        rows="3"
+        [(ngModel)] = "userSettings.notes"
+      ></textarea>
     </div>
 
     <button class="btn btn-primary">Ok</button>
