@@ -18,7 +18,7 @@
         [(ngModel)]="userSettings.name"
         #nameField="ngModel"
         required
-        [class.field-error] = "form.submitted && nameField.invalid"
+        [class.field-error]="form.submitted && nameField.invalid"
         (blur)="onBlur(nameField)"
       />
     </div>
@@ -81,9 +81,9 @@
         class="form-control"
         [(ngModel)]="userSettings.subscriptionType"
       >
-        <option value="monthly">Monthly</option>
-        <option value="annual">Annual</option>
-        <option value="lifetime">Lifetime</option>
+        <option *ngFor="let type of subscriptionTypes | async" [value]="type">
+          {{ type }}
+        </option>
       </select>
     </div>
 
@@ -100,4 +100,7 @@
 
     <button class="btn btn-primary">Ok</button>
   </form>
+  <div [hidden]="!postError" class="alert alert-danger mt-4">
+    {{ postErrorMessage }}
+  </div>
 </div>

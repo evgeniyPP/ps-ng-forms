@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { IUserSettings } from '../data/user-settings';
 import { DataService } from './../data/data.service';
@@ -14,21 +15,40 @@ export class UserSettingsFormComponent implements OnInit {
     name: '',
     emailOffers: false,
     interfaceStyle: 'light',
-    subscriptionType: 'monthly',
+    subscriptionType: null,
     notes: '',
   };
-
   userSettings: IUserSettings = { ...this.initialUserSettings };
+  subscriptionTypes: Observable<string[]>;
+  postError = false;
+  postErrorMessage = null;
 
-  constructor() {}
+  constructor(private dataService: DataService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscriptionTypes = this.dataService.getSubscriptionTypes();
+  }
 
-  onSubmit(form: NgForm) {
-    console.log(`Form validation: ${form.valid}`);
+  onSubmit(form: NgForm): void {
+    if (!form.valid) {
+      this.postError = true;
+      this.postErrorMessage = 'Form is not valid';
+      return;
+    }
+
+    this.dataService.postUserSettingsForm(this.userSettings).subscribe(
+      (data) => console.log('Submit Data: ', data),
+      (err) => this.onHttpError(err)
+    );
   }
 
   onBlur(field: NgModel) {
     console.log(`Field '${field.name}' validation: ${field.valid}`);
+  }
+
+  onHttpError(error) {
+    console.error('Http Error:', error);
+    this.postError = true;
+    this.postErrorMessage = error.error.message;
   }
 }
