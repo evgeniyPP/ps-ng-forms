@@ -1,3 +1,7 @@
 .container {
   max-width: 600px;
 }
+
+.field-error {
+  border: 2px solid red;
+}
