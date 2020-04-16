@@ -13,6 +13,7 @@ import { DataService } from './../data/data.service';
 export class UserSettingsFormComponent implements OnInit {
   initialUserSettings: IUserSettings = {
     name: '',
+    startDate: new Date(),
     emailOffers: false,
     interfaceStyle: 'light',
     subscriptionType: null,
@@ -22,6 +23,7 @@ export class UserSettingsFormComponent implements OnInit {
   subscriptionTypes: Observable<string[]>;
   postError = false;
   postErrorMessage = null;
+  toggleButton = 'On';
 
   constructor(private dataService: DataService) {}
 
